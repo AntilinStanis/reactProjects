@@ -1,12 +1,19 @@
-import { useState, type SubmitEvent } from "react";
+import { useState, type SubmitEvent, useContext } from "react";
 import Button from "./Button";
+import { HabitContext } from "../context/HabitProvider";
 
-type HabitFormProps = {
-  addHabits: (habit: string) => void;
-};
+// type HabitFormProps = {
+//   addHabits: (habit: string) => void;
+// };
 
-function HabitForm({ addHabits }: HabitFormProps) {
+function HabitForm() {
   const [habit, setHabit] = useState("");
+  const context = useContext(HabitContext);
+
+  if (!context) {
+    throw new Error("HabitContext Provider is missing");
+  }
+  const { addHabits } = context;
 
   function handleSubmit(e: SubmitEvent) {
     e.preventDefault();

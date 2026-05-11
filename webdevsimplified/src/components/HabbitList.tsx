@@ -1,12 +1,19 @@
-import HabitItem, { type Habit } from "./HabitItem";
+import { useContext } from "react";
+import HabitItem from "./HabitItem";
+import { HabitContext } from "../context/HabitProvider";
 
 type HabitListProps = {
-  habits: Habit[];
-  deleteHabit: (id: string) => void;
-  toggleCompletion: (id: string, date: Date) => void;
+  visibleDates: Date[];
 };
 
-function HabbitList({ habits, deleteHabit, toggleCompletion }: HabitListProps) {
+function HabbitList({ visibleDates }: HabitListProps) {
+  const context = useContext(HabitContext);
+  if (!context) {
+    throw new Error("HabitContext Provider is missing");
+  }
+
+  const { habits, deleteHabit, toggleCompletion } = context;
+
   if (habits.length == 0)
     return (
       <p className="habitList-p">
@@ -21,7 +28,8 @@ function HabbitList({ habits, deleteHabit, toggleCompletion }: HabitListProps) {
           key={habit.id}
           habit={habits[index]}
           deleteHabit={deleteHabit}
-          toggleCompletion = {toggleCompletion}
+          toggleCompletion={toggleCompletion}
+          visibleDates={visibleDates}
         />
       ))}
     </div>
