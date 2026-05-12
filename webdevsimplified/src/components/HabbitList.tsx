@@ -13,6 +13,7 @@ function HabbitList({ visibleDates }: HabitListProps) {
   }
 
   const { habits, deleteHabit, toggleCompletion } = context;
+  console.log({habits});
 
   if (habits.length == 0)
     return (

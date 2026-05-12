@@ -3,12 +3,13 @@ import HabbitList from "./components/HabbitList";
 import HabitForm from "./components/HabitForm";
 import Header from "./Header";
 import { HabitProvider } from "./context/HabitProvider";
-import { useState } from "react";
+import React, { useState } from "react";
 import { addWeeks, eachDayOfInterval, endOfWeek, startOfWeek } from "date-fns";
 
 function App() {
   const [weekOffset, setWeekOffset] = useState(0);
   const week = addWeeks(new Date(), weekOffset);
+  // const LazyComponent = React.lazy(()=>import("./components/HabbitList"));
   console.log({ Info: "AppComponent rendered" });
   const visibleDates = eachDayOfInterval({
     start: startOfWeek(week, { weekStartsOn: 1 }),
